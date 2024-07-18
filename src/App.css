@@ -1,0 +1,13 @@
+#root {
+  margin: 0 auto;
+  overflow: hidden;
+}
+.leFadeInTop span { animation-name: leFadeInTop }
+@keyframes leFadeInTop {
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    to { opacity: 1 }
+}
+
