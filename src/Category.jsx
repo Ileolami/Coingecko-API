@@ -9,7 +9,7 @@ const Category = () => {
     useEffect(() => {
         axios.get('https://api.coingecko.com/api/v3/search/trending')
        .then(response => {
-            console.log(response.data.categories)
+            //console.log(response.data.categories)
             setCategory(response.data.categories)
         })
        .catch(error => {

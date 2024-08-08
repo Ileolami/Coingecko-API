@@ -5,23 +5,30 @@ import { useParams } from 'react-router-dom';
 
 const DisplayNFT = () => {
   const [apiResponse, setApiResponse] = useState(null);
+  const [loading, setLoading] = useState(false)
   const params = useParams();
 
   useEffect(() => {
     console.log(params.id);
     const fetchData = async () => {
         try {
+          setLoading(true);
           const response = await axios.get(`https://api.coingecko.com/api/v3/nfts/${params.id}`);
-            console.log(response.data)
+            //console.log(response.data)
             setApiResponse(response.data)
         } catch (error) {
             console.error(error)
+        }finally {
+          setLoading(false);
         }
     }
     fetchData()
 }, []);
 return (
   <div>
+    {loading && <div className='flex justify-center items-center h-screen'>
+      <div className='spinner'></div>
+      </div>}
     {apiResponse && (
       <div className=" max-w-screen-md mx-auto rounded-lg overflow-hidden shadow-lg p-6 bg-white">
         <h1 className="text-2xl font-bold text-gray-800 mb-4 text-center">{apiResponse.name}</h1>

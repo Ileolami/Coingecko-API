@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react'
+import { useEffect, useState} from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom';
 import Rechart from './Rechart';
@@ -7,16 +7,20 @@ import Rechart from './Rechart';
 const Display = () => {
   const params = useParams();
   const [apiResponse, setApiResponse] = useState([]);
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const apiResponse = await axios.get(`https://api.coingecko.com/api/v3/coins/${params.id}`);
-        console.log(apiResponse);
+        //console.log(apiResponse);
         setApiResponse(apiResponse)
       } catch (error) {
         console.error(error);
-      }
+      }finally {
+        setLoading(false);
+    }
       
     };
 
@@ -25,10 +29,13 @@ const Display = () => {
   }, []);
   return (
     <div>
-      {apiResponse && (
+      {loading && <div className='flex justify-center items-center h-screen'>
+        <div className='spinner'></div>
+        </div>}
+      {apiResponse.data && (
         <div className=" max-w-screen-md mx-auto rounded-lg overflow-hidden shadow-lg p-6 bg-white">
           <h1 className="text-2xl font-bold text-gray-800 mb-4 text-center">{apiResponse.data.name}</h1>
-          <img src={apiResponse.data.image} alt={apiResponse.data.name} className="w-80 ml-20 lg:ml-52 mb-4 rounded-lg shadow" />
+          <img src={apiResponse.data.image.large} alt={apiResponse.data.name} className="w-80 ml-20 lg:ml-52 mb-4 rounded-lg shadow" />
           <Rechart/>
           <h2 className="font-bold text-lg text-gray-800 mb-2 text-center tracking-widest">DETAILs</h2>
           <div className=' leading-12 '>
