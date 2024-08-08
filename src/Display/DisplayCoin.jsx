@@ -28,7 +28,7 @@ const Display = () => {
     fetchData();
   }, []);
   return (
-    <div>
+    <div className='min-h-screen'>
       {loading && <div className='flex justify-center items-center h-screen'>
         <div className='spinner'></div>
         </div>}
