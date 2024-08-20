@@ -1,6 +1,7 @@
 #root {
   margin: 0 auto;
   overflow: hidden;
+
 }
 .leFadeInTop span { animation-name: leFadeInTop }
 @keyframes leFadeInTop {
@@ -24,4 +25,9 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.scroll{
+  animation: fadeOut 15s forwards;
+  animation-timeline: scroll();
 }
